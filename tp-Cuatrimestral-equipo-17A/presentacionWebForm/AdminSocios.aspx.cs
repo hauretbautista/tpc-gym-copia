@@ -13,5 +13,10 @@ namespace presentacionWebForm
         {
 
         }
+
+        protected void btnAgregarSocio_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaSocio.aspx");
+        }
     }
 }

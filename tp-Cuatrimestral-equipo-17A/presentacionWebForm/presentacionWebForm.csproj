@@ -74,6 +74,7 @@
     <Content Include="SocioMiPerfil.aspx" />
     <Content Include="SocioTurnos.aspx" />
     <Content Include="Web.config" />
+    <Content Include="AltaSocio.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminCobros.aspx.cs">
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="SocioTurnos.aspx.designer.cs">
       <DependentUpon>SocioTurnos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AltaSocio.aspx.cs">
+      <DependentUpon>AltaSocio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaSocio.aspx.designer.cs">
+      <DependentUpon>AltaSocio.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
