@@ -9,6 +9,36 @@ namespace negocio
 {
     public class SocioNegocio
     {
+        public Socio ObtenerPorDni(string dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Socio socio = null;
+            try
+            {
+                datos.setearConsulta("SELECT * FROM SOCIOS WHERE Dni = @Dni");
+                datos.setearParametro("@Dni", dni);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    socio = new Socio
+                    {
+                        IdSocio = (int)datos.Lector["IdSocio"],
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Apellido = datos.Lector["Apellido"].ToString(),
+                        Dni = datos.Lector["Dni"].ToString(),
+                        FechaNacimiento = Convert.ToDateTime(datos.Lector["FechaNacimiento"]),
+                        Telefono = datos.Lector["Telefono"].ToString(),
+                        Email = datos.Lector["Email"].ToString(),
+                        Activo = Convert.ToBoolean(datos.Lector["Activo"])
+                    };
+                }
+                return socio;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public Socio ObtenerPorId(int idSocio)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -101,6 +131,35 @@ namespace negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+        public void BajaLogica(int idSocio)
+        {
+            // BAJA LOGICA SOCIOS
+            AccesoDatos datosSocio = new AccesoDatos();
+            try
+            {
+                datosSocio.setearConsulta("UPDATE SOCIOS SET Activo = 0 WHERE IdSocio = @IdSocio");
+                datosSocio.setearParametro("@IdSocio", idSocio);
+                datosSocio.ejecutarAccion();
+            }
+            finally
+            {
+                datosSocio.cerrarConexion();
+            }
+
+            //BAJA LOGICA USUARIOS
+            AccesoDatos datosUsuario = new AccesoDatos();
+            try
+            {
+                datosUsuario.setearConsulta("UPDATE USUARIOS SET Activo = 0 WHERE IdSocio = @IdSocio");
+                datosUsuario.setearParametro("@IdSocio", idSocio);
+                datosUsuario.ejecutarAccion();
+            }
+            finally
+            {
+                datosUsuario.cerrarConexion();
             }
         }
     }
